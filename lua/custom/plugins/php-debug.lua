@@ -1,0 +1,88 @@
+-- PHP debugging configuration for nvim-dap
+-- Requires Xdebug to be installed and configured on your PHP installation
+
+return {
+  -- Extend the existing nvim-dap configuration
+  "mfussenegger/nvim-dap",
+  config = function()
+    local dap = require("dap")
+    
+    -- PHP Debug Adapter configuration
+    dap.adapters.php = {
+      type = "executable",
+      command = "node",
+      args = { os.getenv("HOME") .. "/.local/share/nvim/mason/packages/php-debug-adapter/extension/out/phpDebug.js" }
+    }
+
+    -- PHP Debug configuration
+    dap.configurations.php = {
+      {
+        name = "Listen for Xdebug",
+        type = "php",
+        request = "launch",
+        port = 9003,
+        stopOnEntry = false,
+        pathMappings = {
+          -- Map your local paths to remote paths if needed
+          -- Example: ["/remote/path"] = "/local/path"
+        },
+      },
+      {
+        name = "Launch currently open script",
+        type = "php",
+        request = "launch",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+        port = 0,
+        runtimeArgs = {
+          "-dxdebug.start_with_request=yes"
+        },
+        env = {
+          XDEBUG_MODE = "debug,develop",
+          XDEBUG_CONFIG = "client_port=${port}"
+        }
+      },
+      {
+        name = "Launch Built-in web server",
+        type = "php",
+        request = "launch",
+        runtimeArgs = {
+          "-dxdebug.mode=debug",
+          "-dxdebug.start_with_request=yes",
+          "-S",
+          "localhost:8000"
+        },
+        program = "",
+        cwd = "${workspaceFolder}",
+        port = 9003,
+        serverReadyAction = {
+          pattern = "Development Server \\(http://localhost:([0-9]+)\\) started",
+          uriFormat = "http://localhost:%s",
+          action = "openExternally"
+        }
+      }
+    }
+
+    -- Optional: Add PHP-specific keybindings
+    vim.keymap.set('n', '<leader>dps', function()
+      dap.continue()
+    end, { desc = 'Debug: Start PHP debugging' })
+
+    vim.keymap.set('n', '<leader>dpc', function()
+      dap.run_to_cursor()
+    end, { desc = 'Debug: Run to cursor' })
+
+    -- Auto-detect PHP projects and set path mappings
+    vim.api.nvim_create_autocmd("BufEnter", {
+      pattern = "*.php",
+      callback = function()
+        local cwd = vim.fn.getcwd()
+        -- You can customize path mappings here based on your project structure
+        -- Example for Docker/remote development:
+        -- dap.configurations.php[1].pathMappings = {
+        --   ["/var/www/html"] = cwd
+        -- }
+      end,
+    })
+  end,
+}
