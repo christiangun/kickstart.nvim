@@ -107,6 +107,8 @@ Read through the `init.lua` file in your configuration folder for more
 information about extending and exploring Neovim. That also includes
 examples of adding popularly requested plugins.
 
+**📖 For a complete keymap reference, see [KEYMAPS.md](./KEYMAPS.md)**
+
 
 ### Getting Started
 

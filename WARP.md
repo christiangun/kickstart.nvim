@@ -6,6 +6,8 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 This is a kickstart.nvim configuration - a well-documented, single-file Neovim setup that serves as a starting point for customization. It's built on the lazy.nvim plugin manager and includes essential plugins for modern development.
 
+**📖 For a complete keymap reference, see [KEYMAPS.md](./KEYMAPS.md)**
+
 ## Essential Commands
 
 ### Neovim Management
@@ -114,39 +116,24 @@ The configuration includes automatic LSP setup for:
 
 ### Key Bindings (Space-prefixed)
 
-**File Operations**:
-- `<leader>sf` - Search files
-- `<leader>sg` - Live grep
-- `<leader>sr` - Resume last search
-- `<leader>sn` - Search Neovim config files
-- `<leader><leader>` - Switch buffers
+**📖 For complete keymap documentation, see [KEYMAPS.md](./KEYMAPS.md)**
 
-**LSP Operations**:
-- `gd` - Go to definition
-- `gr` - Go to references  
-- `<leader>rn` - Rename symbol
-- `<leader>ca` - Code action
-- `<leader>D` - Type definition
+**Most Common Keybindings:**
 
-**Git Operations**:
-- `<leader>gs` - Git status (Telescope)
-- `<leader>hB` - Git blame
+| Category | Key | Action |
+|----------|-----|--------|
+| **Files** | `<leader>sf` | Find files |
+| **Search** | `<leader>sg` | Live grep |
+| **LSP** | `gd` | Go to definition |
+| **LSP** | `<leader>ca` | Code actions |
+| **Git** | `<leader>gs` | Git status |
+| **Explorer** | `<leader>nt` | File tree |
+| **Debug** | `<F5>` | Start debugging |
+| **Buffer** | `<leader>bd` | Delete buffer |
 
-**Buffer/Window Management**:
-- `<leader>bd` - Delete buffer
-- `<leader>bc` - Close buffer
-- `<leader>wsh` - Split horizontally
-- `<leader>wsv` - Split vertically
-
-**File Explorer**:
-- `<leader>nt` - Open Neo-tree
-- `\\` - Toggle Neo-tree reveal
-
-**Debugging** (when enabled):
-- `F5` - Start/Continue debugging
-- `F1/F2/F3` - Step into/over/out
-- `<leader>b` - Toggle breakpoint
-- `F7` - Toggle debug UI
+**Discovery:**
+- `<leader>sk` - Search all keymaps interactively
+- `<Space>` + wait - Show available keybindings (which-key)
 
 ### Custom Features
 
