@@ -1,24 +1,25 @@
-return {
-  'github/copilot.vim',
-  config = function()
-    -- Keybinding to accept suggestions
-    vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
-      expr = true,
-      replace_keycodes = false,
-    })
-    
-    -- Disable default tab mapping
-    vim.g.copilot_no_tab_map = true
-    
-    -- Limit the number of lines in suggestions (default is 50)
-    vim.g.copilot_max_completion_length = 10
-    
-    -- Additional keybindings for partial acceptance
-    vim.keymap.set('i', '<C-l>', '<Plug>(copilot-accept-word)', { desc = 'Accept Copilot word' })
-    vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-line)', { desc = 'Accept Copilot line' })
-    
-    -- Cycle through suggestions
-    vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)', { desc = 'Next Copilot suggestion' })
-    vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)', { desc = 'Previous Copilot suggestion' })
-  end,
-}
+return {}
+-- return {
+--   'github/copilot.vim',
+--   config = function()
+--     -- Keybinding to accept suggestions
+--     vim.keymap.set('i', '<C-j>', 'copilot#Accept("\\<CR>")', {
+--       expr = true,
+--       replace_keycodes = false,
+--     })
+--
+--     -- Disable default tab mapping
+--     vim.g.copilot_no_tab_map = true
+--
+--     -- Limit the number of lines in suggestions (default is 50)
+--     vim.g.copilot_max_completion_length = 10
+--
+--     -- Additional keybindings for partial acceptance
+--     vim.keymap.set('i', '<C-l>', '<Plug>(copilot-accept-word)', { desc = 'Accept Copilot word' })
+--     vim.keymap.set('i', '<C-;>', '<Plug>(copilot-accept-line)', { desc = 'Accept Copilot line' })
+--
+--     -- Cycle through suggestions
+--     vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)', { desc = 'Next Copilot suggestion' })
+--     vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)', { desc = 'Previous Copilot suggestion' })
+--   end,
+-- }
