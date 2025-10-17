@@ -6,12 +6,14 @@ This document provides a comprehensive reference for all keybindings in this kic
 
 - [Leader Key](#leader-key)
 - [Basic Editor Keymaps](#basic-editor-keymaps)
+- [Jumplist Navigation](#jumplist-navigation)
 - [Telescope (Fuzzy Finder)](#telescope-fuzzy-finder)
 - [LSP (Language Server Protocol)](#lsp-language-server-protocol)
 - [Buffer & Window Management](#buffer--window-management)
 - [File Explorer (Neo-tree)](#file-explorer-neo-tree)
 - [Debugging (DAP)](#debugging-dap)
 - [Git Operations](#git-operations)
+- [Trouble (Diagnostics & Navigation)](#trouble-diagnostics--navigation)
 - [Bookmarks Management](#bookmarks-management)
 - [Insert Mode Completion](#insert-mode-completion)
 - [Mini.nvim Text Objects](#mininvim-text-objects--surroundings)
@@ -38,6 +40,26 @@ This document provides a comprehensive reference for all keybindings in this kic
 | `<C-j>` | Normal | Focus lower window | Move focus to the lower window |
 | `<C-k>` | Normal | Focus upper window | Move focus to the upper window |
 | `<Esc><Esc>` | Terminal | Exit terminal mode | Exit terminal mode |
+
+---
+
+## 🦘 Jumplist Navigation
+
+### 📍 Jump History
+
+| Key | Mode | Action | Description |
+|-----|------|--------|-------------|
+| `<leader>jp` | Normal | Jump previous | Go back one step in jumplist (same as `<C-o>`) |
+| `<leader>jn` | Normal | Jump next | Go forward one step in jumplist (same as `<C-i>`) |
+| `<leader>jl` | Normal | Jump list | Open Telescope jumplist picker |
+
+### 💡 Jumplist Tips
+
+- The jumplist tracks your cursor position history across files and locations
+- Vim automatically adds entries when you jump between files, search results, or use commands like `gg`, `G`, etc.
+- Use `:jumps` to see the raw jumplist in a quickfix-style window
+- The Telescope jumplist picker provides a more user-friendly interface with file previews
+- Native Vim keybindings `<C-o>` and `<C-i>` still work alongside these custom mappings
 
 ---
 
@@ -136,9 +158,9 @@ This document provides a comprehensive reference for all keybindings in this kic
 
 | Key | Mode | Action | Description |
 |-----|------|--------|-------------|
-| `<leader>nt` | Normal | Open Neo-tree | Open file explorer |
-| `\\` | Normal | Toggle Neo-tree | Toggle Neo-tree reveal |
-| `\\` | Neo-tree | Close window | Close Neo-tree window |
+| `<leader>ntt` | Normal | Toggle Neo-tree | Toggle Neo-tree file explorer |
+| `<leader>nto` | Normal | Open Neo-tree | Open Neo-tree file explorer |
+| `<leader>ntc` | Normal | Close Neo-tree | Close Neo-tree file explorer |
 
 ### 💡 Neo-tree Tips
 
@@ -212,6 +234,34 @@ This document provides a comprehensive reference for all keybindings in this kic
 - Git signs appear in the sign column (gutter)
 - Use `:Gitsigns` command to access all GitSigns functions
 - Visual mode hunk operations work on selected lines
+
+---
+
+## 🚨 Trouble (Diagnostics & Navigation)
+
+### 🔍 Diagnostic Management
+
+| Key | Mode | Action | Description |
+|-----|------|--------|-------------|
+| `<leader>xx` | Normal | Toggle diagnostics | Show/hide all diagnostics |
+| `<leader>xX` | Normal | Buffer diagnostics | Show/hide current buffer diagnostics |
+| `<leader>xL` | Normal | Location list | Toggle location list |
+| `<leader>xQ` | Normal | Quickfix list | Toggle quickfix list |
+
+### 🧩 LSP Integration
+
+| Key | Mode | Action | Description |
+|-----|------|--------|-------------|
+| `<leader>cs` | Normal | Symbols outline | Toggle symbols outline |
+| `<leader>cl` | Normal | LSP definitions/references | Show LSP definitions and references |
+
+### 💡 Trouble Tips
+
+- Trouble provides a unified interface for diagnostics, quickfix, and location lists
+- Use `j`/`k` to navigate items, `<CR>` to jump to location
+- Press `q` to close trouble window
+- Filter and search within trouble panels using `/`
+- Toggle between different views with the keybindings above
 
 ---
 
@@ -338,7 +388,9 @@ These work with any Vim motion command:
 | **LSP** | `gd` | Go to definition |
 | **LSP** | `<leader>ca` | Code actions |
 | **Git** | `<leader>gs` | Git status |
-| **Explorer** | `<leader>nt` | File tree |
+| **Trouble** | `<leader>xx` | Toggle diagnostics |
+| **Explorer** | `<leader>ntt` | File tree toggle |
+| **Jumplist** | `<leader>jp` | Jump back |
 | **Debug** | `<F5>` | Start debugging |
 | **Buffer** | `<leader>bd` | Delete buffer |
 
