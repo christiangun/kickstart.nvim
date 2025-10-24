@@ -11,13 +11,15 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>ntt', ':Neotree toggle<CR>', desc = 'NeoTree toggle', silent = true },
+    { '<leader>nto', ':Neotree show<CR>', desc = 'NeoTree open', silent = true },
+    { '<leader>ntc', ':Neotree close<CR>', desc = 'NeoTree close', silent = true },
   },
   opts = {
     filesystem = {
       window = {
         mappings = {
-          ['\\'] = 'close_window',
+          -- Custom mappings can be added here
         },
       },
     },
