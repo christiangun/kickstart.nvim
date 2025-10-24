@@ -95,6 +95,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'php-debug-adapter',
       },
     }
 
@@ -132,6 +133,25 @@ return {
     --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
     -- end
 
+    -- Workaround for the controls nil element bug
+    -- Override the problematic refresh function to prevent errors
+    -- pcall(function()
+    --   local controls = require 'dapui.controls'
+    --   if controls and controls.refresh_control_panel then
+    --     local original_refresh = controls.refresh_control_panel
+    --     controls.refresh_control_panel = function()
+    --       local success, err = pcall(original_refresh)
+    --       if not success and string.find(err, "attempt to index local 'element'") then
+    --         -- Silently ignore the nil element error
+    --         return
+    --       elseif not success then
+    --         -- Re-raise other errors
+    --         error(err)
+    --       end
+    --     end
+    --   end
+    -- end)
+
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
@@ -142,6 +162,54 @@ return {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    dap.configurations.php = {
+      {
+        name = 'Listen for Xdebug',
+        type = 'php',
+        request = 'launch',
+        port = 9003,
+        stopOnEntry = false,
+        pathMappings = {
+          -- Map your local paths to remote paths if needed
+          -- Example: ["/remote/path"] = "/local/path"
+        },
+      },
+      {
+        name = 'Launch currently open script',
+        type = 'php',
+        request = 'launch',
+        program = '${file}',
+        cwd = '${workspaceFolder}',
+        port = 0,
+        runtimeArgs = {
+          '-dxdebug.start_with_request=yes',
+        },
+        env = {
+          XDEBUG_MODE = 'debug,develop',
+          XDEBUG_CONFIG = 'client_port=${port}',
+        },
+      },
+      {
+        name = 'Launch Built-in web server',
+        type = 'php',
+        request = 'launch',
+        runtimeArgs = {
+          '-dxdebug.mode=debug',
+          '-dxdebug.start_with_request=yes',
+          '-S',
+          'localhost:8000',
+        },
+        program = '',
+        cwd = '${workspaceFolder}',
+        port = 9003,
+        serverReadyAction = {
+          pattern = 'Development Server \\(http://localhost:([0-9]+)\\) started',
+          uriFormat = 'http://localhost:%s',
+          action = 'openExternally',
+        },
       },
     }
   end,
